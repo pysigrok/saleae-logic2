@@ -1,0 +1,23 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pysigrok-saleae-logic2"
+authors = [{name = "Scott Shawcroft", email = "scott@tannewt.org"}]
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+dependencies = [
+    "pysigrok >= 0.4.0"
+]
+requires-python = ">=3.7"
+
+[tool.flit.module]
+name = "pysigrok_logic2"
+
+[project.urls]
+Home = "https://github.com/pysigrok/saleae-logic2"
+
+[project.entry-points."pysigrok.input_format"]
+srzip = "pysigrok_logic2:Logic2Input"
