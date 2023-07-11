@@ -67,16 +67,18 @@ class Logic2Input(Input):
     def wait(self, conds=[]):
         if conds is None:
             conds = []
-        self.matched = [False]
+        if not conds:
+            conds = [{"skip": 1}]
+        self.matched = [False] * (len(conds) if conds else 1)
         while not any(self.matched):
-            self.matched = [False] * (len(conds) if conds else 1)
             for i, cond in enumerate(conds):
                 if "skip" in cond and cond["skip"] <= (self.next_samplenum - self.samplenum):
-                    self.matched[i] = cond["skip"] == 0
+                    self.matched[i] = True
                     self.samplenum += cond["skip"]
                     continue
 
             if any(self.matched):
+                sample = self.last_sample
                 break
 
             self.samplenum = self.next_samplenum
